@@ -7,6 +7,7 @@ contract ethereumAds {
     string initial_url =
         "https://previews.123rf.com/images/alexwhite/alexwhite1211/alexwhite121100559/16225798-buy-now-icon.jpg";
     uint256 box_count = 10;
+    address payable contractCreator;
 
     struct adBox {
         address owner;
@@ -20,6 +21,7 @@ contract ethereumAds {
         for (uint256 i = 0; i < box_count; i++) {
             adBoxes[i].url = initial_url;
         }
+        contractCreator = payable(msg.sender);
     }
 
     function buyOwnedBox(uint256 _box_index) public payable {
@@ -29,8 +31,8 @@ contract ethereumAds {
         require(msg.sender != adBoxes[_box_index].owner);
         require(msg.value >= adBoxes[_box_index].price);
 
+        payable(adBoxes[_box_index].owner).transfer(msg.value);
         adBoxes[_box_index].owner = msg.sender;
-
         adBoxes[_box_index].price = MAX_PRICE;
     }
 
@@ -39,6 +41,7 @@ contract ethereumAds {
         require(adBoxes[_box_index].owned == false);
         require(msg.value >= initial_price);
 
+        contractCreator.transfer(msg.value);
         adBoxes[_box_index].owner = msg.sender;
         adBoxes[_box_index].owned = true;
 
