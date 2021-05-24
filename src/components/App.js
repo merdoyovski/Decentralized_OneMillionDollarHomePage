@@ -88,7 +88,6 @@ class App extends Component {
   // TODO: Instantiate HTML boxes
   // TODO: Header
   // TODO: Info box for each box
-
   // TODO: Menu
 
   constructor(props) {
