@@ -13,11 +13,14 @@ export default class AdGrid extends Component {
   }
 
   render() {
-    return (
-      <div class="grid">
-        {this.context.contract && this.generateAds()}
-      </div>
-    );
+    if (this.context.contract)
+      return (
+        <div class="grid">
+          {this.generateAds()}
+        </div>
+      );
+    else
+      return <span id="ad-grid-loading">Connecting...</span>
   }
 }
 

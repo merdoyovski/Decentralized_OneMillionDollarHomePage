@@ -1,23 +1,16 @@
-/* ---- grid ---- */
-
 .grid {
-    background: #EEE;
-    max-width: 1200px;
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  background: #EEE;
 }
-
-/* clearfix */
-
-.grid:after {
-    content: '';
-    display: block;
-    clear: both;
-}
-
-/* ---- grid-item ---- */
 
 .grid-item {
-    width: 40px;
-    height: 40px;
-    float: center;
-    background: rgb(255, 255, 255);
+  width: 40px;
+  height: 40px;
+  background: rgb(255, 255, 255);
+}
+
+#ad-grid-loading {
+  color: white;
 }

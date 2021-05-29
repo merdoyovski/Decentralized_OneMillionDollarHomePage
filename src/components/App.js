@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Web3 from 'web3'
 import ethAds from '../abis/ethereumAds.json';
 import './App.css';
-import AdGrid from './AdGrid.js';
 import EtherContext from './EtherContext.js';
+import AdGrid from './AdGrid.js';
+import Header from './Header.js';
 
 export default class App extends Component {
   constructor(props) {
@@ -48,8 +49,6 @@ export default class App extends Component {
   }
 
   // TODO: Rent
-  // TODO: Header
-  // TODO: Menu
 
   render() {
     console.log({ state: this.state, msg: "App render" });
@@ -59,6 +58,7 @@ export default class App extends Component {
         account: this.state.account,
         contract: this.state.contract
       }}>
+        <Header />
         <AdGrid ad_count={this.state.ad_count} />
       </EtherContext.Provider>
     );
