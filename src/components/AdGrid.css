@@ -1,0 +1,23 @@
+/* ---- grid ---- */
+
+.grid {
+    background: #EEE;
+    max-width: 1200px;
+}
+
+/* clearfix */
+
+.grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.grid-item {
+    width: 40px;
+    height: 40px;
+    float: center;
+    background: rgb(255, 255, 255);
+}
