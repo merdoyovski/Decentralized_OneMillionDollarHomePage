@@ -4,10 +4,9 @@ contract ethereumAds {
     mapping(uint256 => adBox) public adBoxes;
     uint256 initial_price = 100 wei;
     uint256 MAX_PRICE = 100 ether;
-    string initial_url =
-        "https://previews.123rf.com/images/alexwhite/alexwhite1211/alexwhite121100559/16225798-buy-now-icon.jpg";
-    uint256 box_count = 10;
-    address payable contractCreator;
+    string public initial_url = "https://previews.123rf.com/images/alexwhite/alexwhite1211/alexwhite121100559/16225798-buy-now-icon.jpg";
+    uint256 public  box_count = 100;
+    address  payable private contractCreator;
 
     struct adBox {
         address owner;
@@ -18,10 +17,19 @@ contract ethereumAds {
     }
 
     constructor() {
-        for (uint256 i = 0; i < box_count; i++) {
-            adBoxes[i].url = initial_url;
-        }
         contractCreator = payable(msg.sender);
+    }
+    
+    function setBoxCount(uint256 _box_count) external{
+        box_count = _box_count;
+    }
+    
+    function setInitialUrl(string memory _initial_url) external{
+        initial_url = _initial_url;
+    }
+    
+    function setInitialPrice(uint256 _initial_price) external{
+        initial_price = _initial_price;
     }
 
     function buyOwnedBox(uint256 _box_index) public payable {
