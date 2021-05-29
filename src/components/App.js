@@ -13,6 +13,10 @@ class App extends Component {
       box_count: 0,
     };
 
+    this.grid = React.createRef();
+
+    console.log({grid: this.grid});
+
     this.interactBox = this.interactBox.bind(this);
   }
 
@@ -33,7 +37,7 @@ class App extends Component {
       box_count,
     });
 
-    const boxes = document.getElementById("grid").children;
+    const boxes = this.grid.current.children;
     for (let i = 0; i < box_count; ++i)
       this.state.contract.methods.getUrl(i).call()
         .then(url => boxes[i].src = url);
@@ -88,8 +92,15 @@ class App extends Component {
   }
 
   setUrl(box_index, url) {
-    this.state.contract.methods.setUrl(box_index, url).send({ from: this.state.account });
-    // TODO: Change the image without refreshing
+    const img = this.grid.current.children[box_index];
+    const previous_src = img.src;
+
+    // TODO: temporary gif, replace
+    img.src = "https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif";
+
+    this.state.contract.methods.setUrl(box_index, url).send({ from: this.state.account })
+      .then(() => img.src = url)
+      .catch(() => img.src = previous_src);
   }
 
   setPrice(box_index, price) {
@@ -112,7 +123,7 @@ class App extends Component {
 
   render() {
     return (
-      <div id="grid" class="grid">
+      <div ref={this.grid} class="grid">
         {this.generateImgTags(this.state.box_count)}
       </div>
     );
