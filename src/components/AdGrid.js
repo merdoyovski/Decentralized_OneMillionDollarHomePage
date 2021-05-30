@@ -41,8 +41,11 @@ class Ad extends Component {
 
   async componentDidMount() {
     const { contract } = this.context;
+    const empty_url = "https://previews.123rf.com/images/alexwhite/alexwhite1211/alexwhite121100559/16225798-buy-now-icon.jpg";
+    var url = await contract.methods.getUrl(this.props.id).call() || empty_url;
+    
     this.setState({
-      src: await contract.methods.getUrl(this.props.id).call()
+      src: url
     });
   }
 
