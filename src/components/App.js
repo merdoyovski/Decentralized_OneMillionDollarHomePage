@@ -21,7 +21,7 @@ export default class App extends Component {
     await this.loadWeb3();
     const web3 = await window.web3;
 
-    const contract_address = "0x2EDc9d77356C63d56C2990EdCAbE9e81C0c5a1C5";
+    const contract_address = "0xb9bfC54c01d0823dCC2e21ca59546c6B465Acd85";
     const abi = ethAds.abi;
 
     const account = (await web3.eth.getAccounts())[0];

@@ -41,6 +41,7 @@ class Ad extends Component {
 
   async componentDidMount() {
     const { contract } = this.context;
+    
     this.setState({
       src: (await contract.methods.getUrl(this.props.id).call()) || this.props.default_ad_src,
     });
@@ -55,14 +56,14 @@ class Ad extends Component {
     // TODO: temporary gif, replace
     img.src = "https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif";
 
-    contract.methods.setUrl(ad_index, url).send({ from: account })
+    contract.methods.setImgUrl(ad_index, url).send({ from: account })
       .then(() => img.src = url)
       .catch(() => img.src = previous_src);
   }
 
   setPrice(ad_index, price) {
     const { contract, account } = this.context;
-    contract.methods.setPrice(ad_index, price).send({ from: account });
+    contract.methods.setBuyPrice(ad_index, price).send({ from: account });
   }
 
   // TODO: Info box for each box
@@ -73,7 +74,7 @@ class Ad extends Component {
     const ad_index = this.props.id;
 
     const [price, isBoxOwned, boxOwner] = await Promise.all([
-      contract.methods.getPrice(ad_index).call(),
+      contract.methods.getBuyPrice(ad_index).call(),
       contract.methods.isBoxOwned(ad_index).call(),
       contract.methods.getOwner(ad_index).call()
     ]);
