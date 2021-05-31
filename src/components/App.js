@@ -27,11 +27,13 @@ export default class App extends Component {
     const account = (await web3.eth.getAccounts())[0];
     const contract = await new web3.eth.Contract(abi, contract_address);
     const ad_count = await contract.methods.getBoxCount().call();
+    const default_ad_src = await contract.methods.initial_url().call();
 
     this.setState({
       account,
       contract,
       ad_count,
+      default_ad_src,
     });
   }
 
@@ -59,7 +61,7 @@ export default class App extends Component {
         contract: this.state.contract
       }}>
         <Header />
-        <AdGrid ad_count={this.state.ad_count} />
+        <AdGrid ad_count={this.state.ad_count} default_ad_src={this.state.default_ad_src}/>
       </EtherContext.Provider>
     );
   }

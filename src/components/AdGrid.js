@@ -8,7 +8,7 @@ export default class AdGrid extends Component {
   generateAds() {
     let ads = [];
     for (let i = 0; i < this.props.ad_count; ++i)
-      ads.push(<Ad key={i} id={i} />);
+      ads.push(<Ad key={i} id={i} default_ad_src={this.props.default_ad_src} />);
     return ads;
   }
 
@@ -42,7 +42,7 @@ class Ad extends Component {
   async componentDidMount() {
     const { contract } = this.context;
     this.setState({
-      src: await contract.methods.getUrl(this.props.id).call()
+      src: (await contract.methods.getUrl(this.props.id).call()) || this.props.default_ad_src,
     });
   }
 
@@ -92,7 +92,7 @@ class Ad extends Component {
       console.log("Owned by another address");
       contract.methods.buyOwnedBox(ad_index).send({
         from: account,
-        value: web3.utils.toWei(web3.utils.toWei(price, 'ether'))
+        value: web3.utils.toWei(price, 'ether')
       }).catch();
     }
     else { // No owner
@@ -105,6 +105,7 @@ class Ad extends Component {
   }
 
   render() {
-    return <img ref={this.img} class="grid-item" src={this.state.src} onClick={this.onClick} alt="" />;
+    return <img ref={this.img} class="grid-item"
+      src={this.state.src} onClick={this.onClick} alt="" />;
   }
 }
