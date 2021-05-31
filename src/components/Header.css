@@ -1,5 +1,19 @@
 header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   width: 100%;
-  height: 3rem;
+  height: 4rem;
   background-color: tomato;
+
+  padding: 0 2rem;
+  margin-bottom: 40px;
+}
+
+header h3
+{
+  margin: 0;
+  margin-bottom: -0.5rem;
+  padding: 0;
 }

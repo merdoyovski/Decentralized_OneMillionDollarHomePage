@@ -4,11 +4,19 @@ import './Header.css';
 export default class Header extends Component {
 
   // TODO: Menu
-  // TODO: Header
 
   render() {
     return (
-      <header>Header Stuff</header>
+      <header>
+        <div>
+          <h3>Decentralized Ads</h3>
+          <span>Powered by Ethereum</span>
+        </div>
+
+        <div>
+          <button>Ad Info</button>
+        </div>
+      </header>
     )
   }
 }

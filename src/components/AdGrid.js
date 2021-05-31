@@ -42,8 +42,11 @@ class Ad extends Component {
   async componentDidMount() {
     const { contract } = this.context;
     
+    this.ad_url = await contract.methods.getAdUrl(this.props.id).call();
+    // this.rent_price = await contract.methods.getRentPrice(this.props.id).call();
+
     this.setState({
-      src: (await contract.methods.getImgUrl(this.props.id).call()) || this.props.default_ad_src,
+      src: await contract.methods.getImgUrl(this.props.id).call() || this.props.default_ad_src,
     });
   }
 
@@ -69,6 +72,11 @@ class Ad extends Component {
   // TODO: Info box for each box
   async onClick() {
     const { contract, account } = this.context;
+
+    //  TODO: this should be the default behavior 
+    // if (this.ad_url)
+    //   window.open(this.ad_url);
+    // return;
 
     const web3 = await window.web3;
     const ad_index = this.props.id;
