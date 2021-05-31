@@ -43,7 +43,7 @@ class Ad extends Component {
     const { contract } = this.context;
     
     this.setState({
-      src: (await contract.methods.getUrl(this.props.id).call()) || this.props.default_ad_src,
+      src: (await contract.methods.getImgUrl(this.props.id).call()) || this.props.default_ad_src,
     });
   }
 

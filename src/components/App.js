@@ -27,7 +27,7 @@ export default class App extends Component {
     const account = (await web3.eth.getAccounts())[0];
     const contract = await new web3.eth.Contract(abi, contract_address);
     const ad_count = await contract.methods.getBoxCount().call();
-    const default_ad_src = await contract.methods.initial_url().call();
+    const default_ad_src = await contract.methods.getInitialUrl().call();
 
     this.setState({
       account,
