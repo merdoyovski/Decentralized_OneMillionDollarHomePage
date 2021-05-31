@@ -42,7 +42,7 @@ class Ad extends Component {
   async componentDidMount() {
     const { contract } = this.context;
     const empty_url = "https://previews.123rf.com/images/alexwhite/alexwhite1211/alexwhite121100559/16225798-buy-now-icon.jpg";
-    var url = await contract.methods.getUrl(this.props.id).call() || empty_url;
+    var url = await contract.methods.getImgUrl(this.props.id).call() || empty_url;
     
     this.setState({
       src: url
@@ -58,14 +58,14 @@ class Ad extends Component {
     // TODO: temporary gif, replace
     img.src = "https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif";
 
-    contract.methods.setUrl(ad_index, url).send({ from: account })
+    contract.methods.setImgUrl(ad_index, url).send({ from: account })
       .then(() => img.src = url)
       .catch(() => img.src = previous_src);
   }
 
   setPrice(ad_index, price) {
     const { contract, account } = this.context;
-    contract.methods.setPrice(ad_index, price).send({ from: account });
+    contract.methods.setBuyPrice(ad_index, price).send({ from: account });
   }
 
   // TODO: Info box for each box
@@ -76,7 +76,7 @@ class Ad extends Component {
     const ad_index = this.props.id;
 
     const [price, isBoxOwned, boxOwner] = await Promise.all([
-      contract.methods.getPrice(ad_index).call(),
+      contract.methods.getBuyPrice(ad_index).call(),
       contract.methods.isBoxOwned(ad_index).call(),
       contract.methods.getOwner(ad_index).call()
     ]);
